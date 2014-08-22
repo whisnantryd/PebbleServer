@@ -4,7 +4,7 @@ function logErr(err) {
 	var timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
 	var msg = timestamp + ' >> ' + err.toString() + '\r\n+-------------';
 	
-	fs.writeFile("/logs/error.log", msg + , function(err) {
+	fs.writeFile("/logs/error.log", msg, function(err) {
 		//couldn't write to file
 	});
 }
