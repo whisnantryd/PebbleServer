@@ -18,6 +18,7 @@ var net = require('net');
 var host = process.argv[2];
 var port = process.argv[3];
 var client = new net.Socket();
+var recieved = "";
 
 client.on('error', function(err){
 	logErr('Client error - ' + err);
@@ -30,7 +31,12 @@ client.on('close', function(){
 });
 
 client.on('data', function(data){
-	parse(data);
+	recieved += data;
+	
+	if(recieved.slice(-1) == '\n' || recieved.slice(-1) == '\r'){
+		parse(recieved);
+		recieved = "";
+	}
 });
 
 client.on('connect', function(){
