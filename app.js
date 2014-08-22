@@ -1,3 +1,18 @@
+var fs = require('fs');
+
+function logErr(err) {
+	var timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+	var msg = timestamp + ' >> ' + err.toString() + '\r\n+-------------';
+	
+	fs.writeFile("/logs/error.log", msg + , function(err) {
+		//couldn't write to file
+	});
+}
+
+process.on('uncaughtException', function(err) {
+	logErr('Unhandled exception - ' + err);
+});
+
 var net = require('net');
 
 var host = process.argv[2];
@@ -5,11 +20,12 @@ var port = process.argv[3];
 var client = new net.Socket();
 
 client.on('error', function(err){
-	//console.log('error - ' + err);
+	logErr('Client error - ' + err);
 });
 
 client.on('close', function(){
     //console.log('closed');
+	logErr('Connection closed');
 	setTimeout(connect, 60000);
 });
 
@@ -108,7 +124,7 @@ function parse(data) {
 		if(rec.length > 1) {		
 			switch(rec[0]) {
 				case '$F':
-					if(hb.flag == 'None  ' || hb.flag == '      ')
+					if((hb.flag == 'None' || hb.flag == '') && hb.flag != rec[5].trim())
 						rs.results = [];
 
 					hb.laps_remain = parseInt(rec[1]);
