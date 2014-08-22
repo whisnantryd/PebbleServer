@@ -49,9 +49,10 @@ Array.prototype.Having = function (key, val) {
 		return;
 
     var ret = [];
-
-	for (rrrr = 0; rrrr < arr.length; rrrr++) {
-		var obj = arr[rrrr];
+	var ri;
+	
+	for (ri = 0; ri < arr.length; ri++) {
+		var obj = arr[ri];
 
 		if (obj != undefined && obj[key] == val) {
 			ret.push(obj);
@@ -115,8 +116,6 @@ function getResult(reg){
 
 function parse(data) {
 	var records = data.toString().replace(/\"/g, '').replace(/\r/g, '').split('\n');
-	//.replace(/\"/g, '')
-	//.replace(/\r/g)
 	
 	for(i=0;i < records.length;i++) {
 		var rec = records[i].toString().split(',');
@@ -179,7 +178,7 @@ var app = require('express')();
 app.get('/', function(req, res){
 	res.send({
 		time : new Date().toJSON(),
-		ver : '0.0.0.21'
+		ver : '0.0.0.48'
 	});
 });
 
