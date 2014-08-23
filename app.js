@@ -129,7 +129,7 @@ function parse(data) {
 		if(rec.length > 1) {		
 			switch(rec[0]) {
 				case '$F':
-					if((hb.flag == 'None' || hb.flag == '') && hb.flag != rec[5].trim())
+					if((hb.flag == 'None' || hb.flag == '') && !(hb.flag == rec[5].trim()))
 						rs.results = [];
 
 					hb.laps_remain = parseInt(rec[1]);
@@ -184,7 +184,7 @@ var app = require('express')();
 app.get('/', function(req, res){
 	res.send({
 		time : new Date().toJSON(),
-		ver : '0.0.0.48'
+		ver : '0.0.0.49'
 	});
 });
 
