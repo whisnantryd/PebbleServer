@@ -2,9 +2,12 @@ var fs = require('fs');
 
 function logErr(err) {
 	var timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-	var msg = timestamp + ' >> ' + err.toString() + '\r\n+-------------';
+	var msg = timestamp + ' >> ' + err.toString() + '\r\n';
 	
-	fs.writeFile("/logs/error.log", msg, function(err) {
+	fs.appendFile("./logs/error.log", msg, function(err) {
+		if(err == null)
+			return;
+			
 		//couldn't write to file
 	});
 }
