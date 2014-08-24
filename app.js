@@ -1,20 +1,27 @@
 var fs = require('fs');
 
+var errlog = './logs/error.log';
+
+// delete the existing log
+fs.unlinkSync(errlog);
+
 function logErr(err) {
 	var timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
 	var msg = timestamp + ' >> ' + err.toString() + '\r\n';
 	
-	fs.appendFile("./logs/error.log", msg, function(err) {
+	fs.appendFile(errlog, msg, function(err) {
 		if(err == null)
 			return;
 			
-		//couldn't write to file
+		// couldn't write to file
 	});
 }
 
 process.on('uncaughtException', function(err) {
-	logErr('Unhandled exception - ' + err);
+	logErr('unhandled exception - ' + err);
 });
+
+logErr('initializing...');
 
 var net = require('net');
 
@@ -24,12 +31,11 @@ var client = new net.Socket();
 var recieved = "";
 
 client.on('error', function(err){
-	logErr('Client error - ' + err);
+	logErr('client error - ' + err);
 });
 
 client.on('close', function(){
-    //console.log('closed');
-	logErr('Connection closed');
+	// set reconnect timer
 	setTimeout(connect, 60000);
 });
 
@@ -43,11 +49,10 @@ client.on('data', function(data){
 });
 
 client.on('connect', function(){
-    //console.log('connected');
+    // connected
 });
 
 function connect(){
-    //console.log('connecting to ' + host + ' on port ' + port + '...');
     client.connect(port, host);
 }
 
@@ -187,7 +192,7 @@ var app = require('express')();
 app.get('/', function(req, res){
 	res.send({
 		time : new Date().toJSON(),
-		ver : '0.0.0.49'
+		ver : '0.0.0.68'
 	});
 });
 
@@ -204,5 +209,5 @@ app.get('/results', function(req, res){
 });
 
 app.listen(80, function(){
-	//console.log('server started');
+	logErr('server started');
 });
