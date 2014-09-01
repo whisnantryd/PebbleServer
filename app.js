@@ -189,6 +189,11 @@ connect();
 
 var app = require('express')();
 
+app.use(function(req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    return next();
+});
+
 app.get('/', function(req, res){
 	res.send({
 		time : new Date().toJSON(),
