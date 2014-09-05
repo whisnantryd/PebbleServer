@@ -152,20 +152,20 @@ function parse(data) {
 	
 					obj.pos = parseInt(rec[1]);
 					obj.lap = parseInt(rec[3]);
-					obj.elp = rec[4];
+					obj.elp = rec[4].replace('00:', '');
 					
 					break;
 				case '$H':
 					var obj = getResult(rec[2]);
 					
 					obj.bl = parseInt(rec[3]);
-					obj.bt = rec[4];
+					obj.bt = rec[4].replace('00:', '');
 					
 					break;
 				case '$J':
 					var obj = getResult(rec[1]);
 					
-					obj.lt = rec[2]
+					obj.lt = rec[2].replace('00:', '');
 				
 					break;
 				case '$B':					
