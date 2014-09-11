@@ -1,9 +1,12 @@
 var fs = require('fs');
-
 var errlog = './logs/error.log';
 
-// delete the existing log
-fs.unlinkSync(errlog);
+fs.exists(errlog, function(istrue) {
+	if(istrue) {
+		// delete the existing log
+		fs.unlinkSync(errlog);
+	}
+});
 
 function logErr(err) {
 	var timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
