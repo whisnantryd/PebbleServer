@@ -107,7 +107,8 @@ function reset(){
 		track : {
 			name : '---',
 			length : '---'
-		}
+		},
+		classes : []
 	};
 
 	rs = {
@@ -173,6 +174,11 @@ function parse(data) {
 					break;
 				case '$B':					
 					race.session = rec[2].trim();	
+					break;
+				case '$C':
+					if(race.classes.indexOf(rec[1]) == -1) {
+						race.classes[rec[1]] = rec[2];
+					}
 					break;
 				case '$E':
 					if(rec[1] == 'TRACKNAME')
