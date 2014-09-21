@@ -91,6 +91,7 @@ function Result() {
 	this.bl = '';
 	this.bt = '';
 	this.lt = '';
+	this.cls = -1;
 }
 
 function reset(){
@@ -151,6 +152,10 @@ function parse(data) {
 					hb.flag = rec[5].trim();
 
 					break;
+				case '$A':
+					var obj = getResult(rec[2]);
+					
+					obj.cls = parseInt(rec[7]);
 				case '$G':
 					var obj = getResult(rec[2]);
 	
