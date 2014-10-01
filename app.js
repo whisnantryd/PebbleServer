@@ -119,12 +119,16 @@ function reset(){
 
 reset();
 
-function getResult(reg){
-	var obj = rs.results.Having('no', reg);
+function getResult(reg) {
+	var obj = rs.results.filter(function(r) {
+		return r.no == reg;
+	});
+	
+	//var obj = rs.results.Having('no', reg);
 
-	if(obj && obj.length == 1)
+	if(obj && obj.length == 1) {
 		obj = obj[0];
-	else{
+	} else {
 		obj = new Result();
 		obj.no = reg;
 		rs.results.push(obj);
@@ -211,7 +215,7 @@ app.use(function(req, res, next) {
 app.get('/', function(req, res){
 	res.send({
 		time : new Date().toJSON(),
-		ver : '0.0.0.68'
+		ver : '0.0.0.72'
 	});
 });
 
