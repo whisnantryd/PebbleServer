@@ -33,50 +33,32 @@ var port = process.argv[3];
 var client = new net.Socket();
 var recieved = "";
 
-client.on('error', function(err){
+client.on('error', function(err) {
 	logErr('client error - ' + err);
 });
 
-client.on('close', function(){
+client.on('close', function() {
 	// set reconnect timer
 	setTimeout(connect, 60000);
 });
 
-client.on('data', function(data){
-	recieved += data;
+client.on('data', function(data) {
+	recieved += data.toString();
 	
 	if(recieved.slice(-1) == '\n' || recieved.slice(-1) == '\r'){
-		parse(recieved);
+		var chunk = recieved;
+		
 		recieved = "";
+		parse(chunk);
 	}
 });
 
-client.on('connect', function(){
+client.on('connect', function() {
     // connected
 });
 
-function connect(){
+function connect() {
     client.connect(port, host);
-}
-
-Array.prototype.Having = function (key, val) {
-	var arr = this;
-
-	if (arr == undefined)
-		return;
-
-    var ret = [];
-	var ri;
-	
-	for (ri = 0; ri < arr.length; ri++) {
-		var obj = arr[ri];
-
-		if (obj != undefined && obj[key] == val) {
-			ret.push(obj);
-		}
-	}
-
-    return ret;
 }
 
 var hb;
@@ -125,8 +107,6 @@ function getResult(reg) {
 		return r.no == reg;
 	});
 	
-	//var obj = rs.results.Having('no', reg);
-
 	if(obj && obj.length == 1) {
 		obj = obj[0];
 	} else {
@@ -160,7 +140,7 @@ function parse(data) {
 				case '$A':
 					var obj = getResult(rec[2]);
 					
-					obj.nm = rec[4].subStr(0, 1) + '. ' + rec[5];
+					obj.nm = rec[4].substring(0, 1) + '. ' + rec[5];
 					obj.cls = parseInt(rec[7]);
 					
 					break;
@@ -232,6 +212,8 @@ app.get('/runinfo', function(req, res){
 });
 
 app.get('/results/:limit?', function(req, res){
+	var limit = req.params.limit;
+	
 	if(limit) {
 		var ret = rs.results.filter(function(r) {
 			return (r.pos <= limit);
