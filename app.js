@@ -86,6 +86,7 @@ var rs;
 function Result() {
 	this.pos = '';
 	this.no = '';
+	this.nm = '';
 	this.lap = '';
 	this.elp = '';
 	this.bl = '';
@@ -159,7 +160,10 @@ function parse(data) {
 				case '$A':
 					var obj = getResult(rec[2]);
 					
+					obj.nm = rec[4].subStr(0, 1) + '. ' + rec[5];
 					obj.cls = parseInt(rec[7]);
+					
+					break;
 				case '$G':
 					var obj = getResult(rec[2]);
 	
@@ -227,8 +231,18 @@ app.get('/runinfo', function(req, res){
 	res.send(race);
 });
 
-app.get('/results', function(req, res){
-	res.send(rs);
+app.get('/results/:limit?', function(req, res){
+	if(limit) {
+		var ret = rs.results.filter(function(r) {
+			return (r.pos <= limit);
+		});
+		
+		res.send({
+			results : ret
+		})
+	} else {
+		res.send(rs);
+	}
 });
 
 app.listen(80, function(){
