@@ -112,6 +112,7 @@ function getResult(reg) {
 	} else {
 		obj = new Result();
 		obj.no = reg;
+		obj.pos = rs.results.length + 1;
 		rs.results.push(obj);
 	}
 	
