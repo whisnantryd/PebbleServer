@@ -141,6 +141,9 @@ function parse(data) {
 				case '$A':
 					var obj = getResult(rec[2]);
 					
+					var fname = rec[4].replace(/\*|\#/g, '');
+					var lname = rec[5].replace(/\*|\#/g, '');
+					
 					obj.nm = rec[4].substring(0, 1) + '. ' + rec[5];
 					obj.cls = parseInt(rec[7]);
 					
