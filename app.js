@@ -39,7 +39,7 @@ client.on('error', function(err) {
 
 client.on('close', function() {
 	// set reconnect timer
-	setTimeout(connect, 60000);
+	setTimeout(connect, 120000);
 });
 
 client.on('data', function(data) {
@@ -217,7 +217,7 @@ app.get('/results/:limit?', function(req, res){
 	
 	if(limit) {
 		var ret = rs.results.filter(function(r) {
-			return (r.pos <= limit && r.pos > 0);
+			return (r.pos != "" && r.pos <= limit && r.pos > 0);
 		});
 		
 		res.send({
