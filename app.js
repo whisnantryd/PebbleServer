@@ -217,7 +217,7 @@ app.get('/results/:limit?', function(req, res){
 	
 	if(limit) {
 		var ret = rs.results.filter(function(r) {
-			return (r.pos <= limit);
+			return (r.pos <= limit && r.pos > 0);
 		});
 		
 		res.send({
