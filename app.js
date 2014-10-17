@@ -148,7 +148,7 @@ function parse(data) {
 				case '$G':
 					var obj = getResult(rec[2]);
 	
-					obj.pos = parseInt(rec[1]);
+					obj.pos = isNaN(parseInt(rec[1])) ? 0 : parseInt(rec[1]);
 					obj.lap = parseInt(rec[3]);
 					obj.elp = rec[4].replace('00:', '');
 					
