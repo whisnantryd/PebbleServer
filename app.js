@@ -120,7 +120,7 @@ function getResult(reg) {
 }
 
 function parse(data) {
-	var records = data.toString().replace(/\"/g, '').replace(/\r/g, '').split('\n');
+	var records = data.toString().replace(/\"|\r/g, '').split('\n');
 	
 	for(i=0;i < records.length;i++) {
 		var rec = records[i].toString().split(',');
