@@ -9,7 +9,7 @@ fs.exists(errlog, function(istrue) {
 });
 
 function logErr(err) {
-	var timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+	var timestamp = new Date().toISOString().replace(/T|\..+/g, ' ');
 	var msg = timestamp + ' >> ' + err.toString() + '\r\n';
 	
 	fs.appendFile(errlog, msg, function(err) {
