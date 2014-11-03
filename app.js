@@ -119,6 +119,16 @@ function getResult(reg) {
 	return obj;
 }
 
+function getResults() {
+	var ret = {results : []};
+
+	ret.results = rs.results.sort(function(a, b) {
+		return a.pos - b.pos;
+	});
+	
+	return ret;
+}
+
 function parse(data) {
 	var records = data.toString().replace(/\"/g, '').replace(/\r/g, '').split('\n');
 	
@@ -203,7 +213,7 @@ app.use(function(req, res, next) {
 app.get('/', function(req, res){
 	res.send({
 		time : new Date().toJSON(),
-		ver : '0.0.0.72'
+		ver : '0.0.0.73'
 	});
 });
 
