@@ -9,7 +9,7 @@ fs.exists(errlog, function(istrue) {
 });
 
 function logErr(err) {
-	var timestamp = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+	var timestamp = new Date().toISOString().replace(/T|\..+/g, ' ');
 	var msg = timestamp + ' >> ' + err.toString() + '\r\n';
 	
 	fs.appendFile(errlog, msg, function(err) {
@@ -130,7 +130,7 @@ function getResults() {
 }
 
 function parse(data) {
-	var records = data.toString().replace(/\"/g, '').replace(/\r/g, '').split('\n');
+	var records = data.toString().replace(/\"|\r/g, '').split('\n');
 	
 	for(i=0;i < records.length;i++) {
 		var rec = records[i].toString().split(',');
