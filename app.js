@@ -154,7 +154,7 @@ function parse(data) {
 					var fname = rec[4].replace(/\*|\#/g, '');
 					var lname = rec[5].replace(/\*|\#/g, '');
 					
-					obj.nm = rec[4].substring(0, 1) + '. ' + rec[5];
+					obj.nm = fname.substring(0, 1) + '. ' + lname;
 					obj.cls = parseInt(rec[7]);
 					
 					break;
