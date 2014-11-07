@@ -1,13 +1,93 @@
 // results.js
 var express = require('express');
 var router = express.Router();
+var Result = require('../models/resultmodel.js');
 
 router.get('/', function(req, res) {
-	res.send(state);
+	res.send({
+		results : state.sort(function(a, b) { return a.pos - b.pos; })
+	});
 });
 
-module.exports = router;
+router.get('/:limit?', function(req, res) {
+	var limit = req.params.limit;
+	
+	if(limit) {
+		var ret = state.filter(function(r) {
+			return (r.pos != "" && r.pos <= limit && r.pos > 0);
+		});
+		
+		res.send({
+			results : ret
+		})
+	} else {
+		res.send({
+			results : state.sort(function(a, b) { return a.pos - b.pos; })
+		});
+	}
+});
 
-var state = {
-	results : []
-};
+function getResult(reg) {
+	var obj = state.filter(function(r) {
+		return r.no == reg;
+	});
+	
+	if(obj && obj.length == 1) {
+		obj = obj[0];
+	} else {
+		obj = new Result();
+		obj.no = reg;
+		obj.pos = 0;
+		state.push(obj);
+	}
+	
+	return obj;
+}
+
+var parse = function(rec) {
+	switch(rec[0]) {
+		case '$A':
+			var obj = getResult(rec[2]);
+			
+			var fname = rec[4].replace(/\*|\#/g, '');
+			var lname = rec[5].replace(/\*|\#/g, '');
+			
+			obj.nm = fname.substring(0, 1) + '. ' + lname;
+			obj.cls = parseInt(rec[7]);
+			
+			break;
+		case '$G':
+			var obj = getResult(rec[2]);
+
+			obj.pos = isNaN(parseInt(rec[1])) ? 0 : parseInt(rec[1]);
+			obj.lap = parseInt(rec[3]);
+			obj.elp = rec[4].replace(/^00:/g, '');
+			
+			break;
+		case '$H':
+			var obj = getResult(rec[2]);
+			
+			obj.bl = parseInt(rec[3]);
+			obj.bt = rec[4].replace(/^00:/g, '');
+			
+			break;
+		case '$J':
+			var obj = getResult(rec[1]);
+			
+			obj.lt = rec[2].replace(/^00:/g, '');
+
+			break;
+		case '$I':
+			reset();
+			break;
+	}
+}
+
+var state = [];
+
+var reset = function() {
+	state = [];
+}
+
+module.exports.parse = parse;
+module.exports.router = router;
