@@ -3,6 +3,9 @@ var express = require('express');
 var router = express.Router();
 var Result = require('../models/resultmodel.js');
 
+var REGEX_NAME = /\*\s|\#\s/g;
+var REGEX_TIME = /^00:/g;
+
 router.get('/', function(req, res) {
 	res.send({
 		results : state.sort(function(a, b) { return a.pos - b.pos; })
@@ -49,8 +52,8 @@ var parse = function(rec) {
 		case '$A':
 			var obj = getResult(rec[2]);
 			
-			var fname = rec[4].replace(/\*|\#/g, '');
-			var lname = rec[5].replace(/\*|\#/g, '');
+			var fname = rec[4].replace(REGEX_NAME, '');
+			var lname = rec[5].replace(REGEX_NAME, '');
 			
 			obj.nm = fname.substring(0, 1) + '. ' + lname;
 			obj.cls = parseInt(rec[7]);
@@ -61,20 +64,20 @@ var parse = function(rec) {
 
 			obj.pos = isNaN(parseInt(rec[1])) ? 0 : parseInt(rec[1]);
 			obj.lap = parseInt(rec[3]);
-			obj.elp = rec[4].replace(/^00:/g, '');
+			obj.elp = rec[4].replace(REGEX_TIME, '');
 			
 			break;
 		case '$H':
 			var obj = getResult(rec[2]);
 			
 			obj.bl = parseInt(rec[3]);
-			obj.bt = rec[4].replace(/^00:/g, '');
+			obj.bt = rec[4].replace(REGEX_TIME, '');
 			
 			break;
 		case '$J':
 			var obj = getResult(rec[1]);
 			
-			obj.lt = rec[2].replace(/^00:/g, '');
+			obj.lt = rec[2].replace(REGEX_TIME, '');
 
 			break;
 		case '$I':
