@@ -15,6 +15,7 @@ client.on('error', function(err) {
 });
 
 client.on('close', function() {
+	flog.log('lost connection');
 	setTimeout(connect, 120000);
 });
 
@@ -41,9 +42,7 @@ function parse(data) {
 	for(i=0;i < records.length;i++) {
 		var rec = records[i].toString().split(',');
 
-		if(rec.length > 1) {
-			console.log(rec);
-			
+		if(rec.length > 1) {			
 			runstate.parse(rec);
 			runinfo.parse(rec);
 			results.parse(rec);

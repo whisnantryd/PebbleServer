@@ -1,6 +1,6 @@
 // filelogger.js
 var fs = require('fs');
-var errlog = '../logs/error.log';
+var errlog = '/logs/error.log';
 
 fs.exists(errlog, function(istrue) {
 	if(istrue) {
@@ -9,7 +9,7 @@ fs.exists(errlog, function(istrue) {
 	}
 });
 
-fs.mkdir('../logs/' ,function(e) {
+fs.mkdir('/logs/' ,function(e) {
     if(!e || (e && e.code === 'EEXIST')) {
         //do something with contents
     } else {
