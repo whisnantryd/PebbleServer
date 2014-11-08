@@ -12,23 +12,30 @@ router.get('/', function(req, res) {
 	});
 });
 
-router.get('/:limit?', function(req, res) {
-	var limit = req.params.limit;
+router.get('/:startat/:count?', function(req, res) {
+	var startat = parseInt(req.params.startat);
+	var count = parseInt(req.params.count);
 	
-	if(limit) {
-		var ret = state.filter(function(r) {
-			return (r.pos != "" && r.pos <= limit && r.pos > 0);
-		});
-		
-		res.send({
-			results : ret
-		})
-	} else {
-		res.send({
-			results : state.sort(function(a, b) { return a.pos - b.pos; })
-		});
-	}
+	res.send(returnResults(startat, count));
 });
+
+function returnResults(startpos, count) {
+	count = (isNaN(count) || count == null || count == '' || count < 1) ? 99999 : count;
+	
+	var ret = [], sorted = state.sort(function(a, b) {
+		return a.pos - b.pos;
+	});
+	
+	for(r in sorted) {
+		if(r.pos >= startpos && ret.length < count) {
+			ret.push(r);
+		}
+	}
+	
+	return {
+		results : ret
+	};
+}
 
 function getResult(reg) {
 	var obj = state.filter(function(r) {
