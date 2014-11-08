@@ -20,17 +20,19 @@ router.get('/:startat/:count?', function(req, res) {
 });
 
 function returnResults(startpos, count) {
-	count = (isNaN(count) || count == null || count == '' || count < 1) ? 99999 : count;
+	if(isNaN(count)) {
+		count = 9999;
+	}
 	
 	var ret = [], sorted = state.sort(function(a, b) {
 		return a.pos - b.pos;
 	});
 	
-	for(r in sorted) {
+	sorted.forEach(function(r) {
 		if(r.pos >= startpos && ret.length < count) {
 			ret.push(r);
 		}
-	}
+	});
 	
 	return {
 		results : ret
