@@ -1,6 +1,6 @@
 // results.js
 var express = require('express');
-var router = express.Router();
+var router = new express.Router();
 var Result = require('../models/resultmodel.js');
 
 var REGEX_NAME = /\*\s|\#\s/g;

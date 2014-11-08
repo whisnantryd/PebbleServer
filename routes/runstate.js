@@ -1,6 +1,6 @@
 // runstate.js
 var express = require('express');
-var router = express.Router();
+var router = new express.Router();
 
 router.get('/', function(req, res) {
 	res.send(state);
