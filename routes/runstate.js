@@ -26,7 +26,7 @@ var parse = function(rec) {
 		case '$G':
 			var pos = isNaN(parseInt(rec[1])) ? 0 : parseInt(rec[1]);
 			
-			if(pos > 0) {
+			if(pos == 1) {
 				state.laps_complete = parseInt(rec[3]);
 			}
 			
