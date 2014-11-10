@@ -4,7 +4,7 @@ var router = new express.Router();
 var Result = require('../models/resultmodel.js');
 
 var REGEX_NAME = /\*\s|\#\s/g;
-var REGEX_TIME = /^00:/g;
+var REGEX_TIME = /^00:00:|^00:/;
 
 router.get('/', function(req, res) {
 	res.send({
