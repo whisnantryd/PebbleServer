@@ -10,7 +10,7 @@ var parse = function(rec) {
 	switch(rec[0]) {
 		case '$F':
 			if((state.flag == 'None' || state.flag == '') && !(state.flag == rec[5].trim()))
-				rs.results = [];
+				module.exports.onNewFlag();
 			
 			state.laps_remain = parseInt(rec[1]);
 			state.time_remain = rec[2];
@@ -20,7 +20,7 @@ var parse = function(rec) {
 			
 			if(parseInt(state.laps_complete) && state.laps_remain < 900) {
 				state.laps = state.laps_complete + state.laps_remain;
-			} else { state.laps = '---'; }
+			} else { state.laps = '---'; state.laps_complete = '---'; }
 			
 			break;
 		case '$G':
@@ -61,3 +61,4 @@ var reset = function() {
 
 module.exports.parse = parse;
 module.exports.router = router;
+module.exports.onNewFlag = function() {};

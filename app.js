@@ -10,6 +10,8 @@ var port = process.argv[3];
 var client = new net.Socket();
 var recieved = "";
 
+runstate.onNewFlag = results.reset;
+
 client.on('error', function(err) {
 	flog.log('client error - ' + err);
 });
