@@ -46,7 +46,7 @@ function parse(data) {
 	for(i=0;i < records.length;i++) {
 		var rec = records[i].toString().split(',');
 
-		if(rec.length > 1) {			
+		if(rec.length > 1) {
 			runstate.parse(rec);
 			runinfo.parse(rec);
 			results.parse(rec);

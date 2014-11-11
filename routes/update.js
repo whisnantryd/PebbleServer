@@ -10,10 +10,12 @@ router.use('/', auth);
 
 router.get('/', function(req, res) {
 	setTimeout(function() {
-		var child = exec('sudo $HOME/start_pebble',
+		var child = exec('$HOME/../home/ubuntu/start_pebble',
 			function(err, stdout, stderr) {
 				if(err !== null) {
 					console.log(err);
+				} else {
+					process.exit();
 				}
 			},
 			{
