@@ -9,6 +9,7 @@ console.log(process.env.HOME);
 router.use('/', auth);
 
 router.get('/', function(req, res) {
+	/*
 	setTimeout(function() {
 		var child = exec('$HOME/../home/ubuntu/start_pebble',
 			function(err, stdout, stderr) {
@@ -20,7 +21,7 @@ router.get('/', function(req, res) {
 			},
 			{
 				encoding: 'utf8',
-				timeout: 5000,
+				timeout: 15000,
 				maxBuffer: 1*1024,
 				killSignal: 'SIGTERM',
 				cwd: null,
@@ -28,8 +29,9 @@ router.get('/', function(req, res) {
 			}
 		);
 	}, 3000);
+	*/
 	
-	res.send({ update : '3 seconds' });
+	res.send({ update : 'disabled' });
 	res.end();
 });
 
