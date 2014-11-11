@@ -4,6 +4,7 @@ var router = new express.Router();
 
 router.get('/', function(req, res) {
 	res.send(state);
+	res.end();
 });
 
 var parse = function(rec) {

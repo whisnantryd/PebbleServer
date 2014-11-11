@@ -4,9 +4,11 @@ var net = require('net');
 var runstate = require('./routes/runstate.js');
 var runinfo = require('./routes/runinfo.js');
 var results = require('./routes/results.js');
+var update = require('./routes/update.js');
 
 var host = process.argv[2];
 var port = process.argv[3];
+
 var client = new net.Socket();
 var recieved = "";
 
@@ -71,7 +73,8 @@ app.get('/', function(req, res){
 app.use('/runstate', runstate.router);
 app.use('/runinfo', runinfo.router);
 app.use('/results', results.router);
+app.use('/update', update.router);
 
-app.listen(80, function(){
+app.listen(8080, function(){
 	flog.log('server started');
 });
