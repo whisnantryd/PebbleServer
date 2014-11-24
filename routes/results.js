@@ -15,9 +15,8 @@ router.get('/', function(req, res) {
 router.get('/:startat/:count?', function(req, res) {
 	var startat = parseInt(req.params.startat);
 	var count = parseInt(req.params.count);
-	
+
 	res.send(returnResults(startat, count));
-	res.end();
 });
 
 function returnResults(startpos, count) {

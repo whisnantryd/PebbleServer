@@ -4,13 +4,12 @@ var router = new express.Router();
 
 router.get('/', function(req, res) {
 	res.send(state);
-	res.end();
 });
 
 var parse = function(rec) {
 	switch(rec[0]) {
-		case '$B':					
-			state.session = rec[2].trim();	
+		case '$B':
+			state.session = rec[2].trim();
 			break;
 		case '$C':
 			if(state.classes.indexOf(rec[1]) == -1) {
@@ -27,7 +26,7 @@ var parse = function(rec) {
 			reset();
 			break;
 	}
-}
+};
 
 var state = {
 	session: "---",
@@ -47,6 +46,7 @@ var reset = function() {
 		},
 		classes: []
 	};
-}
+};
+
 module.exports.parse = parse;
 module.exports.router = router;

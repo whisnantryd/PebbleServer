@@ -4,14 +4,14 @@ var router = new express.Router();
 
 router.get('/', function(req, res) {
 	res.send(state);
-	res.end();
 });
 
 var parse = function(rec) {
 	switch(rec[0]) {
 		case '$F':
-			if((state.flag == 'None' || state.flag == '') && !(state.flag == rec[5].trim()))
+			if((state.flag == 'None' || state.flag == '') && !(state.flag == rec[5].trim())) {
 				module.exports.onNewFlag();
+			}
 			
 			state.laps_remain = parseInt(rec[1]);
 			state.time_remain = rec[2];
