@@ -101,6 +101,10 @@ var reset = function() {
 	state = [];
 }
 
+module.exports.getState = function() {
+	return state;
+}
+
 module.exports.parse = parse;
 module.exports.router = router;
 module.exports.reset = function() {

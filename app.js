@@ -66,9 +66,15 @@ app.use(function(req, res, next) {
 app.get('/', function(req, res){
 	res.send({
 		time : new Date().toJSON(),
-		ver : '0.0.1.4'
+		ver : '0.0.1.5'
 	});
 });
+
+app.get('/race', function(req, res) {
+	var ret = {
+		
+	}
+})
 
 app.use('/runstate', runstate.router);
 app.use('/runinfo', runinfo.router);

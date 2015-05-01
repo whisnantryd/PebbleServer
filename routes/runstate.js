@@ -60,6 +60,10 @@ var reset = function() {
 	};
 }
 
+module.exports.getState = function() {
+	return state;
+}
+
 module.exports.parse = parse;
 module.exports.router = router;
 module.exports.onNewFlag = function() {};
