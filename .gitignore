@@ -26,3 +26,6 @@ node_modules
 
 # Temporary basic authentication users directory
 users.js
+
+# Visual Studio Code debug settings
+.settings
