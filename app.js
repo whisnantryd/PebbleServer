@@ -26,7 +26,9 @@ client.on('close', function() {
 client.on('data', function(data) {
 	recieved += data.toString();
 	
-	if(recieved.slice(-1) == '\n' || recieved.slice(-1) == '\r'){
+	var lastchar = recieved.slice(-1);
+
+	if(lastchar == '\n' || lastchar == '\r'){
 		var chunk = recieved;
 		
 		recieved = "";
