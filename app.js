@@ -70,7 +70,7 @@ app.use(function (req, res, next) {
 app.get('/', function (req, res) {
 	res.send({
 		time: new Date().toJSON(),
-		ver: '0.0.1.5'
+		ver: '0.0.1.6'
 	});
 });
 
