@@ -4,7 +4,7 @@ var router = new express.Router();
 //var auth = require('../midware/auth.js');
 var exec = require('child_process').exec;
 
-console.log(process.env.HOME);
+//console.log(process.env.HOME);
 
 //router.use('/', auth);
 

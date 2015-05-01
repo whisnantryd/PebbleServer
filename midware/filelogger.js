@@ -14,7 +14,7 @@ fs.mkdir('/logs/' ,function(e) {
         //do something with contents
     } else {
         //debug
-        console.log(e);
+        //console.log(e);
     }
 });
 
@@ -27,7 +27,7 @@ var logErr = function(err) {
 			return;
 			
 		// couldn't write to file
-		console.log(err);
+		//console.log(err);
 	});
 }
 

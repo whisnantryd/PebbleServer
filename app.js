@@ -14,29 +14,29 @@ var recieved = "";
 
 runstate.onNewFlag = results.reset;
 
-client.on('error', function(err) {
+client.on('error', function (err) {
 	flog.log('client error - ' + err);
 });
 
-client.on('close', function() {
+client.on('close', function () {
 	flog.log('lost connection');
 	setTimeout(connect, 120000);
 });
 
-client.on('data', function(data) {
+client.on('data', function (data) {
 	recieved += data.toString();
-	
+
 	var lastchar = recieved.slice(-1);
 
-	if(lastchar == '\n' || lastchar == '\r'){
+	if (lastchar == '\n' || lastchar == '\r') {
 		var chunk = recieved;
-		
+
 		recieved = "";
 		parse(chunk);
 	}
 });
 
-client.on('connect', function() { });
+client.on('connect', function () { });
 
 function connect() {
     client.connect(port, host);
@@ -44,11 +44,13 @@ function connect() {
 
 function parse(data) {
 	var records = data.toString().replace(/\"|\r/g, '').split('\n');
-	
-	for(i=0;i < records.length;i++) {
+
+	var i = 0;
+
+	for (i = 0; i < records.length; i++) {
 		var rec = records[i].toString().split(',');
 
-		if(rec.length > 1) {
+		if (rec.length > 1) {
 			runstate.parse(rec);
 			runinfo.parse(rec);
 			results.parse(rec);
@@ -60,21 +62,21 @@ connect();
 
 var app = require('express')();
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     return next();
 });
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
 	res.send({
-		time : new Date().toJSON(),
-		ver : '0.0.1.5'
+		time: new Date().toJSON(),
+		ver: '0.0.1.5'
 	});
 });
 
-app.get('/race', function(req, res) {
+app.get('/race', function (req, res) {
 	var ret = {
-		
+
 	}
 })
 
@@ -83,6 +85,6 @@ app.use('/runinfo', runinfo.router);
 app.use('/results', results.router);
 app.use('/update', update.router);
 
-app.listen(80, function(){
+app.listen(80, function () {
 	flog.log('server started');
 });
