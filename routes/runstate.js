@@ -40,8 +40,8 @@ var parse = function(rec) {
 
 var state = {
 	laps : '---',
-	laps_complete : '---',
-	laps_remain : '---',
+	laps_complete : 999,
+	laps_remain : 999,
 	time_remain : '---',
 	time_ofday : '---',
 	time_elapsed : '---',
@@ -51,8 +51,8 @@ var state = {
 var reset = function() {
 	state = {
 		laps : '---',
-		laps_complete : '---',
-		laps_remain : '---',
+		laps_complete : 999,
+		laps_remain : 999,
 		time_remain : '---',
 		time_ofday : '---',
 		time_elapsed : '---',
