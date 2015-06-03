@@ -78,7 +78,7 @@ app.use(function (req, res, next) {
 app.get('/', function (req, res) {
 	res.send({
 		time: new Date().toJSON(),
-		ver: '0.0.1.6'
+		ver: '0.0.1.8'
 	});
 });
 
@@ -93,6 +93,6 @@ app.use('/runinfo', runinfo.router);
 app.use('/results', results.router);
 app.use('/update', update.router);
 
-app.listen(8090, function () {
+app.listen(80, function () {
 	flog.log('server started');
 });
