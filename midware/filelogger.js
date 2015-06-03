@@ -1,21 +1,9 @@
 // filelogger.js
 var fs = require('fs');
-var errlog = '/logs/error.log';
+var errlog = './logs/error.log';
 
-fs.exists(errlog, function(istrue) {
-	if(istrue) {
-		// delete the existing log
-		fs.unlinkSync(errlog);
-	}
-});
-
-fs.mkdir('/logs/' ,function(e) {
-    if(!e || (e && e.code === 'EEXIST')) {
-        //do something with contents
-    } else {
-        //debug
-        //console.log(e);
-    }
+fs.truncate(errlog, 0, function() {
+	logErr("init...");
 });
 
 var logErr = function(err) {
@@ -27,11 +15,9 @@ var logErr = function(err) {
 			return;
 			
 		// couldn't write to file
-		//console.log(err);
+		console.log(err);
 	});
-}
-
-logErr('initializing...');
+};
 
 module.exports.log = logErr;
 

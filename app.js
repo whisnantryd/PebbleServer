@@ -10,6 +10,7 @@ var host = process.argv[2];
 var port = process.argv[3];
 
 var client = new net.Socket();
+client.connected = false;
 var recieved = "";
 
 runstate.onNewFlag = results.reset;
@@ -19,8 +20,12 @@ client.on('error', function (err) {
 });
 
 client.on('close', function () {
-	flog.log('lost connection');
 	setTimeout(connect, 10000);
+	
+	if(client.connected) {
+		client.connected = false;
+		flog.log('lost connection');
+	}
 });
 
 client.on('data', function (data) {
@@ -36,7 +41,10 @@ client.on('data', function (data) {
 	}
 });
 
-client.on('connect', function () { });
+client.on('connection', function () {
+	client.connected = true;
+	flog.log('connected to ' + host);
+});
 
 function connect() {
     client.connect(port, host);
@@ -85,6 +93,6 @@ app.use('/runinfo', runinfo.router);
 app.use('/results', results.router);
 app.use('/update', update.router);
 
-app.listen(80, function () {
+app.listen(8090, function () {
 	flog.log('server started');
 });
