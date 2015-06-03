@@ -20,7 +20,7 @@ client.on('error', function (err) {
 
 client.on('close', function () {
 	flog.log('lost connection');
-	setTimeout(connect, 120000);
+	setTimeout(connect, 10000);
 });
 
 client.on('data', function (data) {
