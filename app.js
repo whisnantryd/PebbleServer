@@ -41,7 +41,7 @@ client.on('data', function (data) {
 	}
 });
 
-client.on('connection', function () {
+client.on('connect', function () {
 	client.connected = true;
 	flog.log('connected to ' + host);
 });
