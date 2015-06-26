@@ -83,10 +83,24 @@ app.get('/', function (req, res) {
 });
 
 app.get('/race', function (req, res) {
-	var ret = {
+	res.send({
+		status: "null"
+	});
+});
 
+app.get('/restart', function(req, res) {
+	if(client.connected == false) {
+		connect();
+		
+		res.send({
+			status: "connecting..."
+		});
+	} else {
+		res.send({
+			status: "running"
+		});
 	}
-})
+});
 
 app.use('/runstate', runstate.router);
 app.use('/runinfo', runinfo.router);
